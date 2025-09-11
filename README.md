@@ -91,3 +91,25 @@ await raydium.account.fetchWalletTokenAccounts() // if need to force fetching to
 create market
 
 <!-- https://openbook-tools.dexlab.space/market/HYqNwtwYdMTVQUensqQ3njrDu1vucwYVCD7kXbifeMnJ?network=devnet -->
+
+
+```bash
+  yarn dev src/launchpad/createPlatform.ts
+  connect to rpc https://devnet.helius-rpc.com/?api-key=cf609d92-4542-4de3-bde5-a5b25e2efbe2 in devnet
+  simulate tx string: [
+    'AQwHRnkzYiaifZaEtfaoRJXorURisBprt4CT8kGX/CFVQP2EsO+jIEnpoVnWwusyLRJuSdpzJAnqOYnhNLKmtAWAAQABAwCi37tFgA1cx8FXSaimh57E6I7Aeo7yzZN1A079pHtG6YqkggQGEdgTYMG9RjqgPV5EWmX4G+96K1BVHyzQytq4mJbg8CKCAdZjAz4NnpoxO0KbH0p3fXx1lRJ6qKa3cWtMK4dmWeS9EzYFBLUa3H3lNFlRQ0R8Q1pNPdzZjBmGAQIHAAAAAQMEAIQBsFrEr/1x3BSAGgYAAAAAACChBwAAAAAAoIYBAAAAAADoAwAAAAAAABIAAAB5b3VyIHBsYXRmb3JtIG5hbWUZAAAAaHR0cHM6Ly95b3VyLnBsYXRmb3JtLm9yZx0AAABodHRwczovL3lvdXIucGxhdGZvcm0ub3JnL2ltZwAAAAAAAAAAAcTrsmxH1X0mdqMX8KwrApwkEJMpr5lIg+vhgWoCNV5OARABFA=='
+  ]
+  {
+    txId: 'EwzpvM9k1nJs8ibDscLZp7wWPHj7mxgED5LcPKDa4wasaAP7zsgYzGRPfyA5JhfH3a4mzB3Gd7SEMqjSsvmWpmA',
+    signedTx: VersionedTransaction {
+      signatures: [ [Uint8Array] ],
+      message: MessageV0 {
+        header: [Object],
+        staticAccountKeys: [Array],
+        recentBlockhash: '8DqzMQhAZPArXGqu64S4cjQhKNpoMhE7Sy7LjuQGuqdo',
+        compiledInstructions: [Array],
+        addressTableLookups: [Array]
+      }
+    }
+  } platformId: GiecNPBAk5uGsHeqQJSHVu7yivSBjuL4xWJU6hBq8bn9
+```

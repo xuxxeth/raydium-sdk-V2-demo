@@ -17,7 +17,8 @@ import { generateSpecificKeypair } from './utils'
 export const createMint = async () => {
   const raydium = await initSdk()
 
-  const programId = LAUNCHPAD_PROGRAM // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM
+  // const programId = LAUNCHPAD_PROGRAM // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM
+  const programId = DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM
 
   const pair = Keypair.generate()
   // const pair = generateSpecificKeypair() // generate xxxxend mint address
@@ -47,7 +48,7 @@ export const createMint = async () => {
     mintBDecimals: mintBInfo.decimals, // default 9
     /** default platformId is Raydium platform, you can create your platform config in ./createPlatform.ts script */
 
-    // platformId: new PublicKey('your platform id'), // default RAYDIUM playform 4Bu96XjU84XjPDSpveTVf6LYGCkfW5FK7SNkREWcEfV4
+    platformId: new PublicKey('GiecNPBAk5uGsHeqQJSHVu7yivSBjuL4xWJU6hBq8bn9'), // default RAYDIUM playform 4Bu96XjU84XjPDSpveTVf6LYGCkfW5FK7SNkREWcEfV4
     txVersion: TxVersion.V0,
     slippage: new BN(100), // means 1%
     buyAmount: inAmount,
@@ -86,4 +87,4 @@ export const createMint = async () => {
 }
 
 /** uncomment code below to execute */
-// createMint()
+createMint()

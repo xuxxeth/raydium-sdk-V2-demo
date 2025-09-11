@@ -9,14 +9,14 @@ export const createPlatform = async () => {
 
   /** notice: every wallet only enable to create "1" platform config */
   const { transaction, extInfo, execute } = await raydium.launchpad.createPlatformConfig({
-    // programId: LAUNCHPAD_PROGRAM, // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM,
-    programId: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM,
+    programId: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM, // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM,
+    // programId: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM,
     platformAdmin: owner,
     platformClaimFeeWallet: owner,
     platformLockNftWallet: owner,
     cpConfigId: new PublicKey('5MxLgy9oPdTC3YgkiePHqr3EoCRD9uLVYRQS2ANAs7wy'),
 
-    transferFeeExtensionAuth: new PublicKey('auth'), // or just set owner
+    transferFeeExtensionAuth: owner, // or just set owner
 
     creatorFeeRate: new BN('0'), // set number for fee rate
     /**
@@ -54,4 +54,4 @@ export const createPlatform = async () => {
 }
 
 /** uncomment code below to execute */
-// createPlatform()
+createPlatform()
