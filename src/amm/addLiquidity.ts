@@ -17,12 +17,13 @@ export const addLiquidity = async () => {
   const raydium = await initSdk()
 
   // RAY-USDC pool
-  const poolId = '6UmmUiYoBjSrhakAobJw8BvkmJtDVxaeBtbt7rxWo1mg'
+  const poolId = '58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2'
   let poolKeys: AmmV4Keys | AmmV5Keys | undefined
   let poolInfo: ApiV3PoolInfoStandardItem
 
   if (raydium.cluster === 'mainnet') {
     const data = await raydium.api.fetchPoolById({ ids: poolId })
+    console.log('fetched pool data from api:', data)
     poolInfo = data[0] as ApiV3PoolInfoStandardItem
   } else {
     // note: getPoolInfoFromRpc method only return required pool data for computing not all detail pool info
@@ -41,6 +42,8 @@ export const addLiquidity = async () => {
     baseIn: true,
     slippage: new Percent(1, 100), // 1%
   })
+
+  return
 
   const { execute, transaction } = await raydium.liquidity.addLiquidity({
     poolInfo,
@@ -76,4 +79,4 @@ export const addLiquidity = async () => {
 }
 
 /** uncomment code below to execute */
-// addLiquidity()
+addLiquidity()

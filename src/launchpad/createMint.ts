@@ -8,7 +8,7 @@ import {
   LaunchpadPoolInitParam,
   CpmmCreatorFeeOn,
 } from '@raydium-io/raydium-sdk-v2'
-import { initSdk } from '../config'
+import { initSdk, owner } from '../config'
 import BN from 'bn.js'
 import { Keypair, PublicKey } from '@solana/web3.js'
 import { NATIVE_MINT } from '@solana/spl-token'
@@ -17,8 +17,8 @@ import { generateSpecificKeypair } from './utils'
 export const createMint = async () => {
   const raydium = await initSdk()
 
-  // const programId = LAUNCHPAD_PROGRAM // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM
-  const programId = DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM
+  const programId = LAUNCHPAD_PROGRAM // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM
+  // const programId = DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM
 
   const pair = Keypair.generate()
   // const pair = generateSpecificKeypair() // generate xxxxend mint address
@@ -38,21 +38,22 @@ export const createMint = async () => {
     programId,
     mintA,
     decimals: 6,
-    name: 'new launchpad mint',
-    symbol: 'NLP',
+    name: 'JPG Token AMM',
+    symbol: 'JPG-AMM',
     migrateType: 'amm',
-    uri: 'https://google.com',
+    // uri: 'https://geng.one',
+    uri: 'https://ipfs.io/ipfs/QmfHjze2hfiXk3xnznwqdHVRGE3HsSaoS2XLPVtuYkAEjd',
 
     configId,
     configInfo, // optional, sdk will get data by configId if not provided
     mintBDecimals: mintBInfo.decimals, // default 9
     /** default platformId is Raydium platform, you can create your platform config in ./createPlatform.ts script */
 
-    platformId: new PublicKey('GiecNPBAk5uGsHeqQJSHVu7yivSBjuL4xWJU6hBq8bn9'), // default RAYDIUM playform 4Bu96XjU84XjPDSpveTVf6LYGCkfW5FK7SNkREWcEfV4
+    // platformId: new PublicKey('GiecNPBAk5uGsHeqQJSHVu7yivSBjuL4xWJU6hBq8bn9'), // default RAYDIUM playform 4Bu96XjU84XjPDSpveTVf6LYGCkfW5FK7SNkREWcEfV4
     txVersion: TxVersion.V0,
     slippage: new BN(100), // means 1%
     buyAmount: inAmount,
-    createOnly: true, // true means create mint only, false will "create and buy together"
+    createOnly: false, // true means create mint only, false will "create and buy together"
     extraSigners: [pair],
 
     // creatorFeeOn: CpmmCreatorFeeOn.OnlyTokenB, //optional: default CpmmCreatorFeeOn.OnlyTokenB
@@ -64,8 +65,8 @@ export const createMint = async () => {
     // cliffPeriod: new BN(0),  // unit: seconds, default 0
     // unlockPeriod: new BN(0),  // unit: seconds, default 0
 
-    // shareFeeReceiver: new PublicKey('your share wallet'), // only works when createOnly=false
-    // shareFeeRate: new BN(1000), // only works when createOnly=false
+    shareFeeReceiver: new PublicKey('4r1kZEztJqcGMAWGhqqGgWn4B3UZK4usHzL1VvudDp7p'), // only works when createOnly=false
+    shareFeeRate: new BN(1000), // only works when createOnly=false
 
     // computeBudgetConfig: {
     //   units: 600000,

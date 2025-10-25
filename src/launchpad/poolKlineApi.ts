@@ -3,7 +3,7 @@ import { LAUNCH_KLINE_URL } from './url'
 import { KlinePoint } from './type'
 
 async function poolKlineApi() {
-  const poolId = 'pool Id'
+  const poolId = '3QuXxzQ4KNpEaZLAUmQRxtDWpVNLxipdkTCPrKoWNfma'
   const interval = '5' // available for 1 / 5 / 15
 
   const r = await axios.get<{

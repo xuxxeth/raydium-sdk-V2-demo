@@ -3,7 +3,6 @@ import {
   AMM_V4,
   OPEN_BOOK_PROGRAM,
   FEE_DESTINATION_ID,
-  DEVNET_PROGRAM_ID,
 } from '@raydium-io/raydium-sdk-v2'
 import { initSdk, txVersion } from '../config'
 import { PublicKey } from '@solana/web3.js'
@@ -12,11 +11,14 @@ import BN from 'bn.js'
 
 export const createAmmPool = async () => {
   const raydium = await initSdk()
-  const marketId = new PublicKey(`<you market id here>`)
+  const marketId = new PublicKey(`4Bu96XjU84XjPDSpveTVf6LYGCkfW5FK7SNkREWcEfV4`) // replace your openbook market id here
 
   // if you are confirmed your market info, don't have to get market info from rpc below
   const marketBufferInfo = await raydium.connection.getAccountInfo(new PublicKey(marketId))
   const { baseMint, quoteMint } = MARKET_STATE_LAYOUT_V3.decode(marketBufferInfo!.data)
+
+  console.log('baseMint:', baseMint.toBase58(), 'quoteMint:', quoteMint.toBase58())
+  return
 
   // check mint info here: https://api-v3.raydium.io/mint/list
   // or get mint info by api: await raydium.token.getTokenInfo('mint address')
@@ -96,4 +98,4 @@ export const createAmmPool = async () => {
 }
 
 /** uncomment code below to execute */
-// createAmmPool()
+createAmmPool()

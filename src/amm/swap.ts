@@ -11,7 +11,8 @@ export const swap = async () => {
   const raydium = await initSdk()
   const amountIn = 500
   const inputMint = NATIVE_MINT.toBase58()
-  const poolId = '58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2' // SOL-USDC pool
+  // const poolId = '58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2' // SOL-USDC pool
+  const poolId = '3QuXxzQ4KNpEaZLAUmQRxtDWpVNLxipdkTCPrKoWNfma' // SOL-USDC pool
 
   let poolInfo: ApiV3PoolInfoStandardItem | undefined
   let poolKeys: AmmV4Keys | undefined
@@ -20,6 +21,7 @@ export const swap = async () => {
   if (raydium.cluster === 'mainnet') {
     // if you wish to get pool info from rpc, also can modify logic to go rpc method directly
     const data = await raydium.api.fetchPoolById({ ids: poolId })
+    console.log('fetched pool data from api:', data)
     poolInfo = data[0] as ApiV3PoolInfoStandardItem
     if (!isValidAmm(poolInfo.programId)) throw new Error('target pool is not AMM pool')
     poolKeys = await raydium.liquidity.getAmmPoolKeys(poolId)
@@ -64,43 +66,43 @@ export const swap = async () => {
       .div(10 ** mintOut.decimals)
       .toDecimalPlaces(mintOut.decimals)} ${mintOut.symbol || mintOut.address}`
   )
+  return
+  // const { execute } = await raydium.liquidity.swap({
+  //   poolInfo,
+  //   poolKeys,
+  //   amountIn: new BN(amountIn),
+  //   amountOut: out.minAmountOut, // out.amountOut means amount 'without' slippage
+  //   fixedSide: 'in',
+  //   inputMint: mintIn.address,
+  //   txVersion,
 
-  const { execute } = await raydium.liquidity.swap({
-    poolInfo,
-    poolKeys,
-    amountIn: new BN(amountIn),
-    amountOut: out.minAmountOut, // out.amountOut means amount 'without' slippage
-    fixedSide: 'in',
-    inputMint: mintIn.address,
-    txVersion,
+  //   // optional: set up token account
+  //   // config: {
+  //   //   inputUseSolBalance: true, // default: true, if you want to use existed wsol token account to pay token in, pass false
+  //   //   outputUseSolBalance: true, // default: true, if you want to use existed wsol token account to receive token out, pass false
+  //   //   associatedOnly: true, // default: true, if you want to use ata only, pass true
+  //   // },
 
-    // optional: set up token account
-    // config: {
-    //   inputUseSolBalance: true, // default: true, if you want to use existed wsol token account to pay token in, pass false
-    //   outputUseSolBalance: true, // default: true, if you want to use existed wsol token account to receive token out, pass false
-    //   associatedOnly: true, // default: true, if you want to use ata only, pass true
-    // },
+  //   // optional: set up priority fee here
+  //   // computeBudgetConfig: {
+  //   //   units: 600000,
+  //   //   microLamports: 46591500,
+  //   // },
 
-    // optional: set up priority fee here
-    // computeBudgetConfig: {
-    //   units: 600000,
-    //   microLamports: 46591500,
-    // },
+  //   // optional: add transfer sol to tip account instruction. e.g sent tip to jito
+  //   // txTipConfig: {
+  //   //   address: new PublicKey('96gYZGLnJYVFmbjzopPSU6QiEV5fGqZNyN9nmNhvrZU5'),
+  //   //   amount: new BN(10000000), // 0.01 sol
+  //   // },
+  // })
 
-    // optional: add transfer sol to tip account instruction. e.g sent tip to jito
-    // txTipConfig: {
-    //   address: new PublicKey('96gYZGLnJYVFmbjzopPSU6QiEV5fGqZNyN9nmNhvrZU5'),
-    //   amount: new BN(10000000), // 0.01 sol
-    // },
-  })
+  // printSimulateInfo()
+  // // don't want to wait confirm, set sendAndConfirm to false or don't pass any params to execute
+  // const { txId } = await execute({ sendAndConfirm: true })
+  // console.log(`swap successfully in amm pool:`, { txId: `https://explorer.solana.com/tx/${txId}` })
 
-  printSimulateInfo()
-  // don't want to wait confirm, set sendAndConfirm to false or don't pass any params to execute
-  const { txId } = await execute({ sendAndConfirm: true })
-  console.log(`swap successfully in amm pool:`, { txId: `https://explorer.solana.com/tx/${txId}` })
-
-  process.exit() // if you don't want to end up node execution, comment this line
+  // process.exit() // if you don't want to end up node execution, comment this line
 }
 
 /** uncomment code below to execute */
-// swap()
+swap()

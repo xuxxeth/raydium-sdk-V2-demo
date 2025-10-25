@@ -7,3 +7,4 @@ export const printSimulateInfo = () => {
   )
   console.log('strongly suggest use paid rpcs would get you better performance')
 }
+

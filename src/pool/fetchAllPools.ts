@@ -7,8 +7,7 @@ import {
   struct,
   publicKey,
 } from '@raydium-io/raydium-sdk-v2'
-
-const connection = new Connection('rpc url')
+import { connection } from '../config'
 
 const getAmmPoolInfo = async (poolId: PublicKey) => {
   const data = await connection.getAccountInfo(poolId)
@@ -87,4 +86,11 @@ async function fetchAllPools() {
   })
 }
 
-fetchAllPools()
+// fetchAllPools()
+getAmmPoolInfo(new PublicKey('GtDp8vVn5Bk6pKN9fnfmEdu7s2YnRvZ67226Qyiy83t4'))
+  .then((info) => {
+    console.log('pool info:', info)
+  })
+  .catch((err) => {
+    console.error(err)
+  })
