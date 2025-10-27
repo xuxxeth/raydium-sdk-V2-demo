@@ -38,8 +38,8 @@ export const createMint = async () => {
     programId,
     mintA,
     decimals: 6,
-    name: 'JPG Token AMM',
-    symbol: 'JPG-AMM',
+    name: 'JPG Token AMM 8XcCF',
+    symbol: 'JPG-8XcCF',
     migrateType: 'amm',
     // uri: 'https://geng.one',
     uri: 'https://ipfs.io/ipfs/QmfHjze2hfiXk3xnznwqdHVRGE3HsSaoS2XLPVtuYkAEjd',
@@ -49,7 +49,7 @@ export const createMint = async () => {
     mintBDecimals: mintBInfo.decimals, // default 9
     /** default platformId is Raydium platform, you can create your platform config in ./createPlatform.ts script */
 
-    // platformId: new PublicKey('GiecNPBAk5uGsHeqQJSHVu7yivSBjuL4xWJU6hBq8bn9'), // default RAYDIUM playform 4Bu96XjU84XjPDSpveTVf6LYGCkfW5FK7SNkREWcEfV4
+    platformId: new PublicKey('8XcCFugrXYuQjNrUxeF1C7pqPjyz6CGPyLvGL4Fdj9W'), // default RAYDIUM playform 4Bu96XjU84XjPDSpveTVf6LYGCkfW5FK7SNkREWcEfV4
     txVersion: TxVersion.V0,
     slippage: new BN(100), // means 1%
     buyAmount: inAmount,
@@ -89,3 +89,5 @@ export const createMint = async () => {
 
 /** uncomment code below to execute */
 createMint()
+
+// X5Zo4iBA.MA6nu3NNy1T4uiI41Ph27RfHH0WRNPqh

@@ -1,20 +1,34 @@
-import { TxVersion, DEVNET_PROGRAM_ID, printSimulate, LAUNCHPAD_PROGRAM } from '@raydium-io/raydium-sdk-v2'
+import {
+  TxVersion,
+  DEVNET_PROGRAM_ID,
+  printSimulate,
+  getPdaLaunchpadConfigId,
+  LaunchpadConfig,
+  LAUNCHPAD_PROGRAM,
+  LaunchpadPoolInitParam,
+  CpmmCreatorFeeOn,
+} from '@raydium-io/raydium-sdk-v2'
 import { initSdk } from '../config'
-import { PublicKey } from '@solana/web3.js'
 import BN from 'bn.js'
+import { NATIVE_MINT } from '@solana/spl-token'
+import { PublicKey } from '@solana/web3.js'
 
 export const createPlatform = async () => {
   const raydium = await initSdk()
   const owner = raydium.ownerPubKey
-
+  const programId = LAUNCHPAD_PROGRAM // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM
+  const configId = getPdaLaunchpadConfigId(programId, NATIVE_MINT, 0, 0).publicKey
+  console.log('configId:', configId.toBase58())
   /** notice: every wallet only enable to create "1" platform config */
   const { transaction, extInfo, execute } = await raydium.launchpad.createPlatformConfig({
-    programId: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM, // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM,
-    // programId: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM,
+    // programId: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM, // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM,
+    programId: programId,
     platformAdmin: owner,
     platformClaimFeeWallet: owner,
     platformLockNftWallet: owner,
-    cpConfigId: new PublicKey('5MxLgy9oPdTC3YgkiePHqr3EoCRD9uLVYRQS2ANAs7wy'),
+    // 需要的是cpmm-config, https://api-v3.raydium.io/main/cpmm-config
+    cpConfigId: new PublicKey('D4FPEruKEHrG5TenZ2mpDGEfu1iUvTiqBxvpU8HLBvC2'),
+    // cpConfigId: configId,
 
     transferFeeExtensionAuth: owner, // or just set owner
 
@@ -31,17 +45,17 @@ export const createPlatform = async () => {
       burnScale: new BN(100000), // means 10%, burned return lp percent after migration
     },
     feeRate: new BN(1000), // launch lab buy and sell platform feeRate
-    name: 'your platform name',
-    web: 'https://your.platform.org',
-    img: 'https://your.platform.org/img',
+    name: 'Geng One Launchpad',
+    web: 'https://geng.one',
+    img: 'https://geng.one/assets/images/v2/logo.png',
     txVersion: TxVersion.V0,
-    // computeBudgetConfig: {
-    //   units: 600000,
-    //   microLamports: 600000,
-    // },
+    computeBudgetConfig: {
+      units: 600000,
+      microLamports: 600000,
+    },
   })
 
-  //   printSimulate([transaction])
+    // printSimulate([transaction])
 
   try {
     const sentInfo = await execute({ sendAndConfirm: true })
