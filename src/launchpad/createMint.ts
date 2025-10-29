@@ -17,8 +17,7 @@ import { generateSpecificKeypair } from './utils'
 export const createMint = async () => {
   const raydium = await initSdk()
 
-  const programId = LAUNCHPAD_PROGRAM // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM
-  // const programId = DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM
+  const programId = DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM
 
   const pair = Keypair.generate()
   // const pair = generateSpecificKeypair() // generate xxxxend mint address
@@ -31,15 +30,19 @@ export const createMint = async () => {
   const configInfo = LaunchpadConfig.decode(configData.data)
   const mintBInfo = await raydium.token.getTokenInfo(configInfo.mintB)
 
-  const inAmount = new BN(1000)
+  const inAmount = new BN(1000) // amount of mintB to buy launchpad mintA
+
+  console.log('configId:', configInfo)
+  console.log('mintBInfo:', mintBInfo)
+  return
 
   // Rayidum UI usage: https://github.com/raydium-io/raydium-ui-v3-public/blob/master/src/store/useLaunchpadStore.ts#L329
   const { execute, transactions, extInfo } = await raydium.launchpad.createLaunchpad({
     programId,
     mintA,
     decimals: 6,
-    name: 'JPG Token AMM 8XcCF',
-    symbol: 'JPG-8XcCF',
+    name: 'Geng1Sol Token',
+    symbol: 'Geng1Sol',
     migrateType: 'amm',
     // uri: 'https://geng.one',
     uri: 'https://ipfs.io/ipfs/QmfHjze2hfiXk3xnznwqdHVRGE3HsSaoS2XLPVtuYkAEjd',
@@ -49,7 +52,7 @@ export const createMint = async () => {
     mintBDecimals: mintBInfo.decimals, // default 9
     /** default platformId is Raydium platform, you can create your platform config in ./createPlatform.ts script */
 
-    platformId: new PublicKey('8XcCFugrXYuQjNrUxeF1C7pqPjyz6CGPyLvGL4Fdj9W'), // default RAYDIUM playform 4Bu96XjU84XjPDSpveTVf6LYGCkfW5FK7SNkREWcEfV4
+    platformId: new PublicKey('GiecNPBAk5uGsHeqQJSHVu7yivSBjuL4xWJU6hBq8bn9'), // default RAYDIUM playform 4Bu96XjU84XjPDSpveTVf6LYGCkfW5FK7SNkREWcEfV4
     txVersion: TxVersion.V0,
     slippage: new BN(100), // means 1%
     buyAmount: inAmount,
@@ -58,9 +61,10 @@ export const createMint = async () => {
 
     // creatorFeeOn: CpmmCreatorFeeOn.OnlyTokenB, //optional: default CpmmCreatorFeeOn.OnlyTokenB
 
-    // supply: new BN(1_000_000_000_000_000), // lauchpad mint supply amount, default: LaunchpadPoolInitParam.supply
+    supply: new BN(1_000_000_000_000_000), // lauchpad mint supply amount, default: LaunchpadPoolInitParam.supply
     // totalSellA: new BN(793_100_000_000_000),  // lauchpad mint sell amount, default: LaunchpadPoolInitParam.totalSellA
-    // totalFundRaisingB: new BN(85_000_000_000),  // if mintB = SOL, means 85 SOL, default: LaunchpadPoolInitParam.totalFundRaisingB
+    totalFundRaisingB: new BN(30_000_000_000),  // if mintB = SOL, means 85 SOL, default: LaunchpadPoolInitParam.totalFundRaisingB
+    // totalFundRaisingB: LaunchpadPoolInitParam.totalFundRaisingB,  // if mintB = SOL, means 85 SOL, default: LaunchpadPoolInitParam.totalFundRaisingB
     // totalLockedAmount: new BN(0),  // total locked amount, default 0
     // cliffPeriod: new BN(0),  // unit: seconds, default 0
     // unlockPeriod: new BN(0),  // unit: seconds, default 0
@@ -74,7 +78,7 @@ export const createMint = async () => {
     // },
   })
 
-  printSimulate(transactions)
+  // printSimulate(transactions)
 
   try {
     const sentInfo = await execute({ sequentially: true })

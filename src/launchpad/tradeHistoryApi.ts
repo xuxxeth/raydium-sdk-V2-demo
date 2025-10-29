@@ -3,7 +3,7 @@ import { TRADE_HISTORY_URL } from './url'
 import { TradeHistory } from './type'
 
 async function tradeHistoryApi() {
-  const poolId = '3QuXxzQ4KNpEaZLAUmQRxtDWpVNLxipdkTCPrKoWNfma'
+  const poolId = '6zzYtnmhAGfn9LQJKvC6KwvUzPbPYzy17uiCzX1Ldwy2'
 
   const r = await axios.get<{
     id: string

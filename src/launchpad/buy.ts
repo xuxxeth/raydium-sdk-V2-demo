@@ -16,11 +16,11 @@ import Decimal from 'decimal.js'
 export const buy = async () => {
   const raydium = await initSdk()
 
-  const mintA = new PublicKey('7Lqp15cf6iny2C3FZy6S3fRgyBq35ScYRRjUkFMmAMxo')
+  const mintA = new PublicKey('Az5wcFeRZjbj5R1hqCAH9L8c2HiX5xGQGLdZrrAzTWdf')
   const mintB = NATIVE_MINT
-  const inAmount = new BN(1000)
+  const inAmount = new BN(10000)
 
-  const programId = LAUNCHPAD_PROGRAM // devnet: DEV_LAUNCHPAD_PROGRAM
+  const programId = DEV_LAUNCHPAD_PROGRAM // devnet: DEV_LAUNCHPAD_PROGRAM
 
   const poolId = getPdaLaunchpadPoolId(programId, mintA, mintB).publicKey
   const poolInfo = await raydium.launchpad.getRpcPoolInfo({ poolId })

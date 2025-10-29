@@ -9,7 +9,7 @@ export enum MintSortField {
 }
 async function mintListApi() {
   // change platformId to your platform Id
-  const platformId = '8XcCFugrXYuQjNrUxeF1C7pqPjyz6CGPyLvGL4Fdj9W' // this is default list with all platforms
+  const platformId = 'GiecNPBAk5uGsHeqQJSHVu7yivSBjuL4xWJU6hBq8bn9' // this is default list with all platforms
   const sort = 'lastTrade' // marketCap / new / lastTrade
   const nextPageId = '' // this can be got from list api response r.data.data.nextPageId
 

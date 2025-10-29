@@ -16,17 +16,17 @@ import Decimal from 'decimal.js'
 export const sell = async () => {
   const raydium = await initSdk()
 
-  const mintA = new PublicKey('your mint')
+  const mintA = new PublicKey('Az5wcFeRZjbj5R1hqCAH9L8c2HiX5xGQGLdZrrAzTWdf')
   const mintB = NATIVE_MINT
 
-  const programId = LAUNCHPAD_PROGRAM // devnet: DEV_LAUNCHPAD_PROGRAM
+  const programId = DEV_LAUNCHPAD_PROGRAM // devnet: DEV_LAUNCHPAD_PROGRAM
 
   const poolId = getPdaLaunchpadPoolId(programId, mintA, mintB).publicKey
   const poolInfo = await raydium.launchpad.getRpcPoolInfo({ poolId })
   const data = await raydium.connection.getAccountInfo(poolInfo.platformId)
   const platformInfo = PlatformConfig.decode(data!.data)
 
-  const inAmount = new BN(100000)
+  const inAmount = new BN(100000000000)
   const shareFeeReceiver = undefined
   const shareFeeRate = shareFeeReceiver ? new BN(0) : new BN(10000) // do not exceed poolInfo.configInfo.maxShareFeeRate
   const slippage = new BN(100) // means 1%
@@ -94,4 +94,4 @@ export const sell = async () => {
 }
 
 /** uncomment code below to execute */
-// sell()
+sell()

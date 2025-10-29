@@ -32,7 +32,7 @@ export const createPlatform = async () => {
 
     transferFeeExtensionAuth: owner, // or just set owner
 
-    creatorFeeRate: new BN('0'), // set number for fee rate
+    creatorFeeRate: new BN(2000), // set number for fee rate
     /**
      * when migration, launchpad pool will deposit mints in vaultA/vaultB to new cpmm pool
      * and return lp to migration wallet

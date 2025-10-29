@@ -3,7 +3,7 @@ import { MintInfo } from './type'
 import { MINT_INFO_URL } from './url'
 
 async function mintInfoApi() {
-  const mintList = ['J6bJdFiqcH17Yg1CWMrs57VSLizqPaboinG6cf5Yvgir']
+  const mintList = ['Az5wcFeRZjbj5R1hqCAH9L8c2HiX5xGQGLdZrrAzTWdf']
   const r = await axios.get<{
     id: string
     success: boolean
