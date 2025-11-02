@@ -1,16 +1,17 @@
 import { PublicKey } from '@solana/web3.js'
 import { NATIVE_MINT } from '@solana/spl-token'
-import { TxVersion, DEVNET_PROGRAM_ID, LAUNCHPAD_PROGRAM, printSimulate } from '@raydium-io/raydium-sdk-v2'
+import { TxVersion, DEVNET_PROGRAM_ID, LAUNCHPAD_PROGRAM, printSimulate, getPdaPlatformFeeVaultAuth } from '@raydium-io/raydium-sdk-v2'
 import { initSdk } from '../config'
 
 export const claimPlatformFee = async () => {
   const raydium = await initSdk()
-  const poolId = new PublicKey('pool id')
+  const platformId = new PublicKey('E6uQXebFeCbS1byjC6sB3HTSscf9VQUs4vX5ciX4BLXu')
+  const poolId = new PublicKey('vda2NQSDfuAzPfMSMEx9SSmU6rqfoKFpA7soBr9acjP')
 
   const { execute, transaction, extInfo, builder } = await raydium.launchpad.claimPlatformFee({
-    programId: LAUNCHPAD_PROGRAM, // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM
-    platformId: new PublicKey('your platform id'),
-    platformClaimFeeWallet: new PublicKey('your platform fee wallet'),
+    programId: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM, // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM
+    platformId: platformId,
+    platformClaimFeeWallet: raydium.owner?.publicKey!,
     poolId,
 
     // mintB: NATIVE_MINT,
@@ -37,4 +38,4 @@ export const claimPlatformFee = async () => {
 }
 
 /** uncomment code below to execute */
-// claimPlatformFee()
+claimPlatformFee()

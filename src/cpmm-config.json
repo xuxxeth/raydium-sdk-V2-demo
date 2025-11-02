@@ -1,0 +1,51 @@
+{
+  "id": "c56529a0-54f6-43dd-9913-f9168b361fb2",
+  "success": true,
+  "data": [
+    {
+      "id": "5MxLgy9oPdTC3YgkiePHqr3EoCRD9uLVYRQS2ANAs7wy",
+      "index": 0,
+      "protocolFeeRate": 120000,
+      "tradeFeeRate": 2500,
+      "fundFeeRate": 40000,
+      "createPoolFee": "150000000",
+      "creatorFeeRate": 2500
+    },
+    {
+      "id": "HTVWgp8CbUsRNmRE1p9RBYqopxe2qiyApSkiTFLrfxaW",
+      "index": 1,
+      "protocolFeeRate": 120000,
+      "tradeFeeRate": 3000,
+      "fundFeeRate": 40000,
+      "createPoolFee": "150000000",
+      "creatorFeeRate": 2500
+    },
+    {
+      "id": "A9qBhPy4k5UYW72hSgAkh1Epr2do69P54yzzcMV3yv6b",
+      "index": 2,
+      "protocolFeeRate": 120000,
+      "tradeFeeRate": 5000,
+      "fundFeeRate": 40000,
+      "createPoolFee": "150000000",
+      "creatorFeeRate": 2500
+    },
+    {
+      "id": "EsTevfacYXpuho5VBuzBjDZi8dtWidGnXoSYAr8krTvz",
+      "index": 3,
+      "protocolFeeRate": 120000,
+      "tradeFeeRate": 10000,
+      "fundFeeRate": 40000,
+      "createPoolFee": "150000000",
+      "creatorFeeRate": 2500
+    },
+    {
+      "id": "5Gt9qrPJ6FVe9VHtwF2W2JrFR6p9jmx4DxBkgfPdaApk",
+      "index": 4,
+      "protocolFeeRate": 120000,
+      "tradeFeeRate": 40000,
+      "fundFeeRate": 40000,
+      "createPoolFee": "150000000",
+      "creatorFeeRate": 2500
+    }
+  ]
+}

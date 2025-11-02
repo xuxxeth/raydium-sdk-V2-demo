@@ -3,6 +3,7 @@ import {
   DEVNET_PROGRAM_ID,
   printSimulate,
   getPdaLaunchpadConfigId,
+  getCpmmPdaAmmConfigId,
   LaunchpadConfig,
   LAUNCHPAD_PROGRAM,
   LaunchpadPoolInitParam,
@@ -10,29 +11,23 @@ import {
 } from '@raydium-io/raydium-sdk-v2'
 import { initSdk } from '../config'
 import BN from 'bn.js'
-import { NATIVE_MINT } from '@solana/spl-token'
 import { PublicKey } from '@solana/web3.js'
 
 export const createPlatform = async () => {
   const raydium = await initSdk()
   const owner = raydium.ownerPubKey
-  const programId = LAUNCHPAD_PROGRAM // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM
-  const configId = getPdaLaunchpadConfigId(programId, NATIVE_MINT, 0, 0).publicKey
-  console.log('configId:', configId.toBase58())
+  const programId = DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM
+
   /** notice: every wallet only enable to create "1" platform config */
   const { transaction, extInfo, execute } = await raydium.launchpad.createPlatformConfig({
-    // programId: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM, // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM,
     programId: programId,
     platformAdmin: owner,
     platformClaimFeeWallet: owner,
     platformLockNftWallet: owner,
-    // 需要的是cpmm-config, https://api-v3.raydium.io/main/cpmm-config
-    cpConfigId: new PublicKey('D4FPEruKEHrG5TenZ2mpDGEfu1iUvTiqBxvpU8HLBvC2'),
-    // cpConfigId: configId,
+    cpConfigId: new PublicKey('EsTevfacYXpuho5VBuzBjDZi8dtWidGnXoSYAr8krTvz'),
 
     transferFeeExtensionAuth: owner, // or just set owner
-
-    creatorFeeRate: new BN(2000), // set number for fee rate
+    
     /**
      * when migration, launchpad pool will deposit mints in vaultA/vaultB to new cpmm pool
      * and return lp to migration wallet
@@ -44,7 +39,8 @@ export const createPlatform = async () => {
       creatorScale: new BN(500000), // means 50%, locked 50% of return lp and return to creator nft wallet
       burnScale: new BN(100000), // means 10%, burned return lp percent after migration
     },
-    feeRate: new BN(1000), // launch lab buy and sell platform feeRate
+    feeRate: new BN(1000), // 0.1% launch lab buy and sell platform feeRate
+    creatorFeeRate: new BN(2000), // 支付给代币创建者的费用以bps*100为单位。例如：0.2% = 2000。最高为5,000。
     name: 'Geng One Launchpad',
     web: 'https://geng.one',
     img: 'https://geng.one/assets/images/v2/logo.png',

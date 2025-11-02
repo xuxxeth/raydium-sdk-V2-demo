@@ -31,4 +31,4 @@ export const claimCreatorFee = async () => {
 }
 
 /** uncomment code below to execute */
-// claimCreatorFee()
+claimCreatorFee()

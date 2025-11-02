@@ -6,6 +6,7 @@ import {
   Curve,
   PlatformConfig,
   LAUNCHPAD_PROGRAM,
+  DEVNET_PROGRAM_ID,
 } from '@raydium-io/raydium-sdk-v2'
 import { initSdk } from '../config'
 import BN from 'bn.js'
@@ -16,11 +17,11 @@ import Decimal from 'decimal.js'
 export const buy = async () => {
   const raydium = await initSdk()
 
-  const mintA = new PublicKey('Az5wcFeRZjbj5R1hqCAH9L8c2HiX5xGQGLdZrrAzTWdf')
+  const mintA = new PublicKey('2bxQLATr5Q2e9erZntinrfaDfrkfQYktnFJuWGLEDjAR')
   const mintB = NATIVE_MINT
-  const inAmount = new BN(10000)
+  const inAmount = new BN(1200000000)
 
-  const programId = DEV_LAUNCHPAD_PROGRAM // devnet: DEV_LAUNCHPAD_PROGRAM
+  const programId = DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM // devnet: DEV_LAUNCHPAD_PROGRAM
 
   const poolId = getPdaLaunchpadPoolId(programId, mintA, mintB).publicKey
   const poolInfo = await raydium.launchpad.getRpcPoolInfo({ poolId })
@@ -29,8 +30,8 @@ export const buy = async () => {
   const mintInfo = await raydium.token.getTokenInfo(mintA)
   const epochInfo = await raydium.connection.getEpochInfo()
 
-  const shareFeeReceiver = undefined
-  const shareFeeRate = shareFeeReceiver ? new BN(0) : new BN(10000) // do not exceed poolInfo.configInfo.maxShareFeeRate
+  const shareFeeReceiver = new PublicKey('B3XvLngudhT4s5mNviHUVb3FfDCr1VPzcTorPvrUtjjn') // optional
+  const shareFeeRate = shareFeeReceiver ? new BN(0) : new BN(3000) // do not exceed poolInfo.configInfo.maxShareFeeRate
   const slippage = new BN(100) // means 1%
 
   const res = Curve.buyExactIn({
@@ -83,8 +84,8 @@ export const buy = async () => {
     platformFeeRate: platformInfo.feeRate,
     txVersion: TxVersion.V0,
     buyAmount: inAmount,
-    // shareFeeReceiver, // optional
-    // shareFeeRate,  // optional, do not exceed poolInfo.configInfo.maxShareFeeRate
+    shareFeeReceiver, // optional
+    shareFeeRate,  // optional, do not exceed poolInfo.configInfo.maxShareFeeRate
 
     // computeBudgetConfig: {
     //   units: 600000,

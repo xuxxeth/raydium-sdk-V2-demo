@@ -6,6 +6,7 @@ import {
   LaunchpadConfig,
   LAUNCHPAD_PROGRAM,
   LaunchpadPoolInitParam,
+  getCpmmPdaAmmConfigId,
   CpmmCreatorFeeOn,
 } from '@raydium-io/raydium-sdk-v2'
 import { initSdk, owner } from '../config'
@@ -18,7 +19,7 @@ export const createMint = async () => {
   const raydium = await initSdk()
 
   const programId = DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM
-
+  
   const pair = Keypair.generate()
   // const pair = generateSpecificKeypair() // generate xxxxend mint address
   const mintA = pair.publicKey
@@ -29,22 +30,16 @@ export const createMint = async () => {
   if (!configData) throw new Error('config not found')
   const configInfo = LaunchpadConfig.decode(configData.data)
   const mintBInfo = await raydium.token.getTokenInfo(configInfo.mintB)
-
-  const inAmount = new BN(1000) // amount of mintB to buy launchpad mintA
-
-  console.log('configId:', configInfo)
-  console.log('mintBInfo:', mintBInfo)
-  return
+  const inAmount = new BN(1300000000) // amount of mintB to buy launchpad mintA 2sol
 
   // Rayidum UI usage: https://github.com/raydium-io/raydium-ui-v3-public/blob/master/src/store/useLaunchpadStore.ts#L329
   const { execute, transactions, extInfo } = await raydium.launchpad.createLaunchpad({
     programId,
     mintA,
     decimals: 6,
-    name: 'Geng1Sol Token',
-    symbol: 'Geng1Sol',
-    migrateType: 'amm',
-    // uri: 'https://geng.one',
+    name: 'GengD Token',
+    symbol: 'GengD',
+    migrateType: 'cpmm',
     uri: 'https://ipfs.io/ipfs/QmfHjze2hfiXk3xnznwqdHVRGE3HsSaoS2XLPVtuYkAEjd',
 
     configId,
@@ -52,26 +47,24 @@ export const createMint = async () => {
     mintBDecimals: mintBInfo.decimals, // default 9
     /** default platformId is Raydium platform, you can create your platform config in ./createPlatform.ts script */
 
-    platformId: new PublicKey('GiecNPBAk5uGsHeqQJSHVu7yivSBjuL4xWJU6hBq8bn9'), // default RAYDIUM playform 4Bu96XjU84XjPDSpveTVf6LYGCkfW5FK7SNkREWcEfV4
+    platformId: new PublicKey('E6uQXebFeCbS1byjC6sB3HTSscf9VQUs4vX5ciX4BLXu'), // default RAYDIUM playform 4Bu96XjU84XjPDSpveTVf6LYGCkfW5FK7SNkREWcEfV4
     txVersion: TxVersion.V0,
     slippage: new BN(100), // means 1%
     buyAmount: inAmount,
     createOnly: false, // true means create mint only, false will "create and buy together"
     extraSigners: [pair],
 
-    // creatorFeeOn: CpmmCreatorFeeOn.OnlyTokenB, //optional: default CpmmCreatorFeeOn.OnlyTokenB
-
+    creatorFeeOn: CpmmCreatorFeeOn.OnlyTokenB, //optional: default CpmmCreatorFeeOn.OnlyTokenB
     supply: new BN(1_000_000_000_000_000), // lauchpad mint supply amount, default: LaunchpadPoolInitParam.supply
     // totalSellA: new BN(793_100_000_000_000),  // lauchpad mint sell amount, default: LaunchpadPoolInitParam.totalSellA
     totalFundRaisingB: new BN(30_000_000_000),  // if mintB = SOL, means 85 SOL, default: LaunchpadPoolInitParam.totalFundRaisingB
-    // totalFundRaisingB: LaunchpadPoolInitParam.totalFundRaisingB,  // if mintB = SOL, means 85 SOL, default: LaunchpadPoolInitParam.totalFundRaisingB
     // totalLockedAmount: new BN(0),  // total locked amount, default 0
     // cliffPeriod: new BN(0),  // unit: seconds, default 0
     // unlockPeriod: new BN(0),  // unit: seconds, default 0
 
-    shareFeeReceiver: new PublicKey('4r1kZEztJqcGMAWGhqqGgWn4B3UZK4usHzL1VvudDp7p'), // only works when createOnly=false
-    shareFeeRate: new BN(1000), // only works when createOnly=false
-
+    // shareFeeReceiver: owner.publicKey, // only works when createOnly=false
+    // shareFeeRate: new BN(3000), // only works when createOnly=false 0.3%
+    platformFeeRate: new BN(2000), // optional: default 0, means 0%, unit is bps*100, e.g. 1% = 1000
     // computeBudgetConfig: {
     //   units: 600000,
     //   microLamports: 46591500,

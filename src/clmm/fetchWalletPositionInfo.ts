@@ -15,10 +15,14 @@ import { PublicKey } from '@solana/web3.js'
 export const fetchWalletPositionInfo = async () => {
   const raydium = await initSdk()
 
-  const programId = CLMM_PROGRAM_ID // devnet: DEVNET_PROGRAM_ID.CLMM_PROGRAM_ID
+  // const programId = CLMM_PROGRAM_ID // devnet: DEVNET_PROGRAM_ID.CLMM_PROGRAM_ID
+  const programId = DEVNET_PROGRAM_ID.CLMM_PROGRAM_ID // devnet: DEVNET_PROGRAM_ID.CLMM_PROGRAM_ID
   const positionInfo = await raydium.clmm.getOwnerPositionInfo({ programId })
-  const lockPositionInfo = await raydium.clmm.getOwnerLockedPositionInfo({ programId: CLMM_LOCK_PROGRAM_ID }) // devnet:  DEVNET_PROGRAM_ID.CLMM_LOCK_PROGRAM_ID
+  const lockPositionInfo = await raydium.clmm.getOwnerLockedPositionInfo({ programId: DEVNET_PROGRAM_ID.CLMM_LOCK_PROGRAM_ID }) // devnet:  DEVNET_PROGRAM_ID.CLMM_LOCK_PROGRAM_ID
 
+  console.log('positionInfo:', positionInfo)
+  console.log('lockPositionInfo:', lockPositionInfo)
+  return
   /** if you don't want to use sdk fetch owner all position info, try below to fetch by wallet */
   // const wallet = new PublicKey('your wallet')
   // const [ownerTokenAccountResp, ownerToken2022AccountResp] = await Promise.all([
