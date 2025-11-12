@@ -8,7 +8,7 @@ export const claimPlatformFeeFromVault = async () => {
 
   const { execute, transaction, extInfo, builder } = await raydium.launchpad.claimVaultPlatformFee({
     programId: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM, // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM
-    platformId: new PublicKey('A7uRwxv8KdPaXPnt8a8iMgiGAVaP1Xxfs5XveSSUg5iq'),
+    platformId: new PublicKey('Bxv8AyVVCUWFwrgvF12izcrTiBrj3VJtSgZFbrNwRf4J'),
     claimFeeWallet: raydium.ownerPubKey,
 
     mintB: NATIVE_MINT, // currently all mintB is WSOL

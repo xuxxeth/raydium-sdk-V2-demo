@@ -66,7 +66,6 @@ export const createMint = async () => {
     // shareFeeReceiver: owner.publicKey, // only works when createOnly=false
     // shareFeeRate: new BN(3000), // only works when createOnly=false 0.3%
     platformFeeRate: new BN(2500), // optional: default 0, means 0%, unit is bps*100, e.g. 1% = 1000
-    // creatorFeeRate: new BN(2500), // optional: default 0, means 0%, unit is bps*100, e.g. 1% = 1000
     // computeBudgetConfig: {
     //   units: 600000,
     //   microLamports: 46591500,
