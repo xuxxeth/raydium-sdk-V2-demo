@@ -19,7 +19,7 @@ export const createMint = async () => {
   const raydium = await initSdk()
 
   const programId = DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM
-  
+  console.log('Using Launchpad ProgramId:', programId.toBase58())
   const pair = Keypair.generate()
   // const pair = generateSpecificKeypair() // generate xxxxend mint address
   const mintA = pair.publicKey
@@ -29,6 +29,7 @@ export const createMint = async () => {
   const configData = await raydium.connection.getAccountInfo(configId)
   if (!configData) throw new Error('config not found')
   const configInfo = LaunchpadConfig.decode(configData.data)
+
   const mintBInfo = await raydium.token.getTokenInfo(configInfo.mintB)
   const inAmount = new BN(1300000000) // amount of mintB to buy launchpad mintA 2sol
 
@@ -37,8 +38,8 @@ export const createMint = async () => {
     programId,
     mintA,
     decimals: 6,
-    name: 'GengD Token',
-    symbol: 'GengD',
+    name: 'GengR Token',
+    symbol: 'GengR',
     migrateType: 'cpmm',
     uri: 'https://ipfs.io/ipfs/QmfHjze2hfiXk3xnznwqdHVRGE3HsSaoS2XLPVtuYkAEjd',
 
@@ -47,7 +48,7 @@ export const createMint = async () => {
     mintBDecimals: mintBInfo.decimals, // default 9
     /** default platformId is Raydium platform, you can create your platform config in ./createPlatform.ts script */
 
-    platformId: new PublicKey('E6uQXebFeCbS1byjC6sB3HTSscf9VQUs4vX5ciX4BLXu'), // default RAYDIUM playform 4Bu96XjU84XjPDSpveTVf6LYGCkfW5FK7SNkREWcEfV4
+    platformId: new PublicKey('Bxv8AyVVCUWFwrgvF12izcrTiBrj3VJtSgZFbrNwRf4J'), // default RAYDIUM playform 4Bu96XjU84XjPDSpveTVf6LYGCkfW5FK7SNkREWcEfV4
     txVersion: TxVersion.V0,
     slippage: new BN(100), // means 1%
     buyAmount: inAmount,
@@ -64,7 +65,8 @@ export const createMint = async () => {
 
     // shareFeeReceiver: owner.publicKey, // only works when createOnly=false
     // shareFeeRate: new BN(3000), // only works when createOnly=false 0.3%
-    platformFeeRate: new BN(2000), // optional: default 0, means 0%, unit is bps*100, e.g. 1% = 1000
+    platformFeeRate: new BN(2500), // optional: default 0, means 0%, unit is bps*100, e.g. 1% = 1000
+    // creatorFeeRate: new BN(2500), // optional: default 0, means 0%, unit is bps*100, e.g. 1% = 1000
     // computeBudgetConfig: {
     //   units: 600000,
     //   microLamports: 46591500,

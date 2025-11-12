@@ -12,7 +12,7 @@ import BN from 'bn.js'
 
 export const poolInfo = async () => {
   const raydium = await initSdk()
-  const poolId = new PublicKey('vda2NQSDfuAzPfMSMEx9SSmU6rqfoKFpA7soBr9acjP')
+  const poolId = new PublicKey('5VH7haYSkH23Jhisjs6v6m8BYFAGzUzpTE4JUrMaSEEN')
   // or you can get pool id from mintA/B  getPdaLaunchpadPoolId(LAUNCHPAD_PROGRAM, mintA, mintB).publicKey
 
   const r = await raydium.connection.getAccountInfo(poolId)

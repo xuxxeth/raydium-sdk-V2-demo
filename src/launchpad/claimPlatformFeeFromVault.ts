@@ -8,8 +8,8 @@ export const claimPlatformFeeFromVault = async () => {
 
   const { execute, transaction, extInfo, builder } = await raydium.launchpad.claimVaultPlatformFee({
     programId: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM, // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM
-    platformId: new PublicKey('your platform id'),
-    claimFeeWallet: new PublicKey('your platform fee wallet'),
+    platformId: new PublicKey('A7uRwxv8KdPaXPnt8a8iMgiGAVaP1Xxfs5XveSSUg5iq'),
+    claimFeeWallet: raydium.ownerPubKey,
 
     mintB: NATIVE_MINT, // currently all mintB is WSOL
     // mintBProgram?: TOKEN_PROGRAM_ID;
@@ -32,4 +32,4 @@ export const claimPlatformFeeFromVault = async () => {
 }
 
 /** uncomment code below to execute */
-// claimPlatformFeeFromVault()
+claimPlatformFeeFromVault()

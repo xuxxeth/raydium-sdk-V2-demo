@@ -4,6 +4,7 @@ import {
   printSimulate,
   LAUNCHPAD_PROGRAM,
   PlatformConfig,
+  DEVNET_PROGRAM_ID,
 } from '@raydium-io/raydium-sdk-v2'
 import { initSdk } from '../config'
 import { PublicKey } from '@solana/web3.js'
@@ -19,9 +20,10 @@ export const updatePlatform = async () => {
    * 3. after 1 platform config updated, platform config epoch will be updated to on-chain epoch, next update should wait on-chian epoch grows up
    */
   const { execute, transaction } = await raydium.launchpad.updatePlatformConfig({
-    // programId: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM,
-    platformAdmin: new PublicKey('owner'),
-    updateInfo: { type: 'updateFeeRate', value: new BN(10) },
+    programId: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM,
+    platformAdmin: raydium.ownerPubKey,
+    // updateInfo: { type: 'updateFeeRate', value: new BN(2500) },
+    // updateInfo: { type: 'updateFeeRate', value: new BN(2500) },
 
     /** other update example */
     // updateInfo: { type: 'updateClaimFeeWallet', value: new PublicKey('wallet') },
@@ -33,7 +35,7 @@ export const updatePlatform = async () => {
     //     burnScale: new BN(100000),
     //   },
     // },
-    // updateInfo: { type: 'updateCpConfigId', value: new PublicKey('cp config id') },
+    updateInfo: { type: 'updateCpConfigId', value: new PublicKey('5MxLgy9oPdTC3YgkiePHqr3EoCRD9uLVYRQS2ANAs7wy') },
 
     txVersion: TxVersion.V0,
     // computeBudgetConfig: {
@@ -55,4 +57,4 @@ export const updatePlatform = async () => {
 }
 
 /** uncomment code below to execute */
-// updatePlatform()
+updatePlatform()

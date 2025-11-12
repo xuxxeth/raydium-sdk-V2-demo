@@ -5,7 +5,7 @@ import { initSdk } from '../config'
 
 export const claimPlatformFee = async () => {
   const raydium = await initSdk()
-  const platformId = new PublicKey('E6uQXebFeCbS1byjC6sB3HTSscf9VQUs4vX5ciX4BLXu')
+  const platformId = new PublicKey('A7uRwxv8KdPaXPnt8a8iMgiGAVaP1Xxfs5XveSSUg5iq')
   const poolId = new PublicKey('vda2NQSDfuAzPfMSMEx9SSmU6rqfoKFpA7soBr9acjP')
 
   const { execute, transaction, extInfo, builder } = await raydium.launchpad.claimPlatformFee({

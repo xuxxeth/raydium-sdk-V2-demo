@@ -24,7 +24,7 @@ export const createPlatform = async () => {
     platformAdmin: owner,
     platformClaimFeeWallet: owner,
     platformLockNftWallet: owner,
-    cpConfigId: new PublicKey('EsTevfacYXpuho5VBuzBjDZi8dtWidGnXoSYAr8krTvz'),
+    cpConfigId: new PublicKey('5MxLgy9oPdTC3YgkiePHqr3EoCRD9uLVYRQS2ANAs7wy'),
 
     transferFeeExtensionAuth: owner, // or just set owner
     
@@ -39,9 +39,9 @@ export const createPlatform = async () => {
       creatorScale: new BN(500000), // means 50%, locked 50% of return lp and return to creator nft wallet
       burnScale: new BN(100000), // means 10%, burned return lp percent after migration
     },
-    feeRate: new BN(1000), // 0.1% launch lab buy and sell platform feeRate
-    creatorFeeRate: new BN(2000), // 支付给代币创建者的费用以bps*100为单位。例如：0.2% = 2000。最高为5,000。
-    name: 'Geng One Launchpad',
+    feeRate: new BN(2500), // 0.25% launch lab buy and sell platform feeRate
+    creatorFeeRate: new BN(2500), // 支付给代币创建者的费用以bps*100为单位。例如：0.25% = 2500。最高为5,000。
+    name: 'Geng.One',
     web: 'https://geng.one',
     img: 'https://geng.one/assets/images/v2/logo.png',
     txVersion: TxVersion.V0,
@@ -65,3 +65,4 @@ export const createPlatform = async () => {
 
 /** uncomment code below to execute */
 createPlatform()
+

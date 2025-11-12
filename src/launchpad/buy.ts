@@ -17,7 +17,7 @@ import Decimal from 'decimal.js'
 export const buy = async () => {
   const raydium = await initSdk()
 
-  const mintA = new PublicKey('2bxQLATr5Q2e9erZntinrfaDfrkfQYktnFJuWGLEDjAR')
+  const mintA = new PublicKey('vKeTx7pYNaEuk4xQbSQsvNqXGSWBa3KVygfs3UUc37Z')
   const mintB = NATIVE_MINT
   const inAmount = new BN(1200000000)
 
@@ -31,8 +31,9 @@ export const buy = async () => {
   const epochInfo = await raydium.connection.getEpochInfo()
 
   const shareFeeReceiver = new PublicKey('B3XvLngudhT4s5mNviHUVb3FfDCr1VPzcTorPvrUtjjn') // optional
-  const shareFeeRate = shareFeeReceiver ? new BN(0) : new BN(3000) // do not exceed poolInfo.configInfo.maxShareFeeRate
+  const shareFeeRate = new BN(3000) // do not exceed poolInfo.configInfo.maxShareFeeRate
   const slippage = new BN(100) // means 1%
+  console.log(platformInfo.feeRate.toString(), platformInfo.creatorFeeRate.toString())
 
   const res = Curve.buyExactIn({
     poolInfo,
@@ -61,7 +62,7 @@ export const buy = async () => {
       : undefined,
     slot: await raydium.connection.getSlot(),
   })
-
+  console.log('buyExactIn result:', res)
   console.log(
     'expected out amount: ',
     res.amountA.amount.sub(res.amountA.fee ?? new BN(0)).toString(),
@@ -70,6 +71,9 @@ export const buy = async () => {
       .mul((10000 - slippage.toNumber()) / 10000)
       .toFixed(0)
   )
+
+  console.log(programId, mintInfo.programId)
+  return
 
   // Raydium UI usage: https://github.com/raydium-io/raydium-ui-v3-public/blob/master/src/store/useLaunchpadStore.ts#L563
   const { transaction, extInfo, execute } = await raydium.launchpad.buyToken({
@@ -84,8 +88,8 @@ export const buy = async () => {
     platformFeeRate: platformInfo.feeRate,
     txVersion: TxVersion.V0,
     buyAmount: inAmount,
-    shareFeeReceiver, // optional
-    shareFeeRate,  // optional, do not exceed poolInfo.configInfo.maxShareFeeRate
+    // shareFeeReceiver, // optional
+    // shareFeeRate,  // optional, do not exceed poolInfo.configInfo.maxShareFeeRate
 
     // computeBudgetConfig: {
     //   units: 600000,
