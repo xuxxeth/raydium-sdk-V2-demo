@@ -5,10 +5,10 @@ import { initSdk } from '../config'
 
 export const claimPlatformFeeFromVault = async () => {
   const raydium = await initSdk()
-
+  console.log(raydium?.owner?.publicKey.toBase58())
   const { execute, transaction, extInfo, builder } = await raydium.launchpad.claimVaultPlatformFee({
-    programId: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM, // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM
-    platformId: new PublicKey('Bxv8AyVVCUWFwrgvF12izcrTiBrj3VJtSgZFbrNwRf4J'),
+    programId: LAUNCHPAD_PROGRAM, // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM
+    platformId: new PublicKey('G3TKsBMZQ7oSkys4t8unpLUD4AKCLUdGJNrisrfCtgKD'),
     claimFeeWallet: raydium.ownerPubKey,
 
     mintB: NATIVE_MINT, // currently all mintB is WSOL

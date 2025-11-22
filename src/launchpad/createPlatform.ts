@@ -16,7 +16,7 @@ import { PublicKey } from '@solana/web3.js'
 export const createPlatform = async () => {
   const raydium = await initSdk()
   const owner = raydium.ownerPubKey
-  const programId = DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM
+  const programId = LAUNCHPAD_PROGRAM // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM
 
   /** notice: every wallet only enable to create "1" platform config */
   const { transaction, extInfo, execute } = await raydium.launchpad.createPlatformConfig({
@@ -24,7 +24,7 @@ export const createPlatform = async () => {
     platformAdmin: owner,
     platformClaimFeeWallet: owner,
     platformLockNftWallet: owner,
-    cpConfigId: new PublicKey('5MxLgy9oPdTC3YgkiePHqr3EoCRD9uLVYRQS2ANAs7wy'),
+    cpConfigId: new PublicKey('G95xxie3XbkCqtE39GgQ9Ggc7xBC8Uceve7HFDEFApkc'),
 
     transferFeeExtensionAuth: owner, // or just set owner
     
@@ -39,9 +39,9 @@ export const createPlatform = async () => {
       creatorScale: new BN(500000), // means 50%, locked 50% of return lp and return to creator nft wallet
       burnScale: new BN(100000), // means 10%, burned return lp percent after migration
     },
-    feeRate: new BN(2500), // 0.25% launch lab buy and sell platform feeRate
+    feeRate: new BN(10000), // 0.25% launch lab buy and sell platform feeRate
     creatorFeeRate: new BN(2500), // 支付给代币创建者的费用以bps*100为单位。例如：0.25% = 2500。最高为5,000。
-    name: 'Geng.One',
+    name: 'GENG',
     web: 'https://geng.one',
     img: 'https://geng.one/assets/images/v2/logo.png',
     txVersion: TxVersion.V0,

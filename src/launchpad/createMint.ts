@@ -38,8 +38,8 @@ export const createMint = async () => {
     programId,
     mintA,
     decimals: 6,
-    name: 'GengR Token',
-    symbol: 'GengR',
+    name: 'GengR1 Token',
+    symbol: 'GengR1',
     migrateType: 'cpmm',
     uri: 'https://ipfs.io/ipfs/QmfHjze2hfiXk3xnznwqdHVRGE3HsSaoS2XLPVtuYkAEjd',
 
@@ -48,7 +48,7 @@ export const createMint = async () => {
     mintBDecimals: mintBInfo.decimals, // default 9
     /** default platformId is Raydium platform, you can create your platform config in ./createPlatform.ts script */
 
-    platformId: new PublicKey('Bxv8AyVVCUWFwrgvF12izcrTiBrj3VJtSgZFbrNwRf4J'), // default RAYDIUM playform 4Bu96XjU84XjPDSpveTVf6LYGCkfW5FK7SNkREWcEfV4
+    platformId: new PublicKey('G3TKsBMZQ7oSkys4t8unpLUD4AKCLUdGJNrisrfCtgKD'), // default RAYDIUM playform 4Bu96XjU84XjPDSpveTVf6LYGCkfW5FK7SNkREWcEfV4
     txVersion: TxVersion.V0,
     slippage: new BN(100), // means 1%
     buyAmount: inAmount,
@@ -65,7 +65,7 @@ export const createMint = async () => {
 
     // shareFeeReceiver: owner.publicKey, // only works when createOnly=false
     // shareFeeRate: new BN(3000), // only works when createOnly=false 0.3%
-    platformFeeRate: new BN(2500), // optional: default 0, means 0%, unit is bps*100, e.g. 1% = 1000
+    platformFeeRate: new BN(10000), // optional: default 0, means 0%, unit is bps*100, e.g. 1% = 1000
     // computeBudgetConfig: {
     //   units: 600000,
     //   microLamports: 46591500,
