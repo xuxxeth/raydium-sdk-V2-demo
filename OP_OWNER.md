@@ -1,6 +1,11 @@
 
 # Owner op
 
+## 安装依赖包
+在raydium-sdk-V2-geng目录下
+`
+ yarn 
+`
 ## 创建平台ID
 
 ### 1. 更新配置文件到主网 src/env.ts

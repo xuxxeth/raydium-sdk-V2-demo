@@ -5,11 +5,11 @@ import { initSdk } from '../config'
 
 export const claimPlatformFee = async () => {
   const raydium = await initSdk()
-  const platformId = new PublicKey('A7uRwxv8KdPaXPnt8a8iMgiGAVaP1Xxfs5XveSSUg5iq')
-  const poolId = new PublicKey('vda2NQSDfuAzPfMSMEx9SSmU6rqfoKFpA7soBr9acjP')
+  const platformId = new PublicKey('91XqEMddeqh7WpeG3HkJRHSuT3nzLBBNZhQkuoEXpNUo')
+  const poolId = new PublicKey('uPmLZJmYeRyeHYv6Wte4nzBkyLygLqxZAi6HfFnYxLM')
 
   const { execute, transaction, extInfo, builder } = await raydium.launchpad.claimPlatformFee({
-    programId: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM, // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM
+    programId: LAUNCHPAD_PROGRAM, // devnet: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM
     platformId: platformId,
     platformClaimFeeWallet: raydium.owner?.publicKey!,
     poolId,

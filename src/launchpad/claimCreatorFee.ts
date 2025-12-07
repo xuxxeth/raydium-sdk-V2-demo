@@ -6,7 +6,7 @@ export const claimCreatorFee = async () => {
   const raydium = await initSdk()
 
   const { transaction, execute } = await raydium.launchpad.claimCreatorFee({
-    programId: DEVNET_PROGRAM_ID.LAUNCHPAD_PROGRAM,
+    programId: LAUNCHPAD_PROGRAM,
 
     mintB: NATIVE_MINT, // currently all launchlab pool mintB is WSOL
     // mintBProgram: TOKEN_PROGRAM_ID,
